@@ -9,27 +9,44 @@ const logApiCall = (method, url, headers, data = null) => {
 };
 
 // Backend 1 specific API calls
+//export const fetchFromBackend1 = async (endpoint) => {
+//  const url = `${process.env.NEXT_PUBLIC_BACKEND1_URL || 'https://backend1.questnest.in'}/api/${endpoint}`;
+//  const headers = {
+///    'Content-Type': 'application/json',
+//    'X-API-KEY': process.env.NEXT_PUBLIC_BACKEND1_API_KEY || 'questnest-backend1-api-7b9c4e8d2f1a5360',
+//  };
+  
+//  logApiCall('GET', url, headers);
+  
+//  try {
+//    const response = await axios.get(url, { headers });
+//    return response.data;
+//  } catch (error) {
+//    console.error('Error fetching from Backend 1:', error);
+//    // Enhanced error logging
+//    if (error.response) {
+//      console.error('Response data:', error.response.data);
+//      console.error('Response status:', error.response.status);
+//    } else if (error.request) {
+//      console.error('No response received:', error.request);
+//    }
+//    throw error;
+//  }
+//};
+
 export const fetchFromBackend1 = async (endpoint) => {
-  const url = `${process.env.NEXT_PUBLIC_BACKEND1_URL || 'https://backend1.questnest.in'}/api/${endpoint}`;
-  const headers = {
-    'Content-Type': 'application/json',
-    'X-API-KEY': process.env.NEXT_PUBLIC_BACKEND1_API_KEY || 'questnest-backend1-api-7b9c4e8d2f1a5360',
-  };
-  
-  logApiCall('GET', url, headers);
-  
   try {
-    const response = await axios.get(url, { headers });
+    const response = await axios.get(
+      `http://143.198.72.142:8000/api/${endpoint}`,
+      {
+        headers: {
+          'X-API-KEY': 'questnest-backend1-api-7b9c4e8d2f1a5360',
+        }
+      }
+    );
     return response.data;
   } catch (error) {
     console.error('Error fetching from Backend 1:', error);
-    // Enhanced error logging
-    if (error.response) {
-      console.error('Response data:', error.response.data);
-      console.error('Response status:', error.response.status);
-    } else if (error.request) {
-      console.error('No response received:', error.request);
-    }
     throw error;
   }
 };
